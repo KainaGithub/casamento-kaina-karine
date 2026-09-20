@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kainã &amp; Karine — Nosso Casamento</title>
+<meta name="description" content="Planejamento do casamento de Kainã e Karine: convite, orçamento da casa nova e roteiro de lua de mel.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Cormorant+Garamond:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="petals" aria-hidden="true"></div>
+
+<header class="site-header">
+  <div class="brand">
+    <span class="brand-mark">🌸</span>
+    <span class="brand-names">Kainã <em>&amp;</em> Karine</span>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Seções do planejamento">
+    <button class="tab-btn is-active" data-tab="casamento" role="tab" aria-selected="true" id="tab-btn-casamento">
+      <span class="tab-ico">💐</span> Casamento
+    </button>
+    <button class="tab-btn" data-tab="casa" role="tab" aria-selected="false" id="tab-btn-casa">
+      <span class="tab-ico">🏡</span> Nossa Casa
+    </button>
+    <button class="tab-btn" data-tab="luademel" role="tab" aria-selected="false" id="tab-btn-luademel">
+      <span class="tab-ico">🌴</span> Lua de Mel
+    </button>
+  </nav>
+  <div class="header-actions">
+    <button id="btn-export" class="ghost-btn" title="Baixar backup dos dados preenchidos">⬇ Backup</button>
+    <label class="ghost-btn" title="Carregar um backup salvo anteriormente">
+      ⬆ Importar
+      <input type="file" id="input-import" accept="application/json" hidden>
+    </label>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== TAB 1 — CASAMENTO ===================== -->
+<section id="panel-casamento" class="tab-panel is-active" role="tabpanel" aria-labelledby="tab-btn-casamento">
+
+  <div class="invite" id="invite-card">
+    <svg class="corner corner-tl" viewBox="0 0 120 120" aria-hidden="true"><use href="#flourish"/></svg>
+    <svg class="corner corner-tr" viewBox="0 0 120 120" aria-hidden="true"><use href="#flourish"/></svg>
+    <svg class="corner corner-bl" viewBox="0 0 120 120" aria-hidden="true"><use href="#flourish"/></svg>
+    <svg class="corner corner-br" viewBox="0 0 120 120" aria-hidden="true"><use href="#flourish"/></svg>
+
+    <p class="invite-kicker">Com muito amor, convidamos você para celebrar</p>
+    <h1 class="invite-names">Kainã <span>&amp;</span> Karine</h1>
+    <p class="invite-sub">vamos nos casar!</p>
+
+    <div class="invite-divider" aria-hidden="true">
+      <svg viewBox="0 0 300 24"><use href="#divider-flower"/></svg>
+    </div>
+
+    <div class="invite-fields">
+      <label>Data do casamento
+        <input type="date" id="f-data-casamento" data-store="casamento.data">
+      </label>
+      <label>Horário
+        <input type="time" id="f-horario" data-store="casamento.horario">
+      </label>
+      <label>Local da cerimônia
+        <input type="text" placeholder="Ex.: Igreja / Espaço de eventos" data-store="casamento.localCerimonia">
+      </label>
+      <label>Local da recepção
+        <input type="text" placeholder="Ex.: Salão de festas" data-store="casamento.localRecepcao">
+      </label>
+    </div>
+
+    <textarea class="invite-message" data-store="casamento.mensagem" rows="3" placeholder="Escreva aqui a mensagem que vai no convite dos seus convidados... Ex.: 'Depois de tanto caminhar juntos, chegou a hora de dizer sim. Contamos com a sua presença para celebrar esse novo capítulo.'"></textarea>
+
+    <div class="countdown" id="countdown" aria-live="polite">
+      <div class="countdown-box"><strong id="cd-dias">--</strong><span>dias</span></div>
+      <div class="countdown-box"><strong id="cd-horas">--</strong><span>horas</span></div>
+      <div class="countdown-box"><strong id="cd-min">--</strong><span>min</span></div>
+      <div class="countdown-box"><strong id="cd-seg">--</strong><span>seg</span></div>
+    </div>
+
+    <div class="invite-actions">
+      <label>Link/contato para confirmação (RSVP)
+        <input type="text" placeholder="Ex.: wa.me/55XXXXXXXXXXX" data-store="casamento.rsvp">
+      </label>
+      <button class="primary-btn" id="btn-print-invite">🖨️ Imprimir / salvar convite em PDF</button>
+    </div>
+  </div>
+
+  <!-- Resumo financeiro casamento -->
+  <div class="summary-strip" data-summary="casamento">
+    <div class="stat-tile accent-rose">
+      <span class="stat-label">Orçado</span>
+      <strong class="stat-value" data-sum="orcado">R$ 0,00</strong>
+    </div>
+    <div class="stat-tile accent-rose">
+      <span class="stat-label">Gasto até agora</span>
+      <strong class="stat-value" data-sum="gasto">R$ 0,00</strong>
+    </div>
+    <div class="stat-tile accent-rose">
+      <span class="stat-label">Restante</span>
+      <strong class="stat-value" data-sum="restante">R$ 0,00</strong>
+    </div>
+    <div class="stat-progress">
+      <div class="progress-track"><div class="progress-fill" data-sum="barra"></div></div>
+      <span class="progress-label"><span data-sum="percentual">0%</span> do orçamento já utilizado</span>
+    </div>
+  </div>
+
+  <h2 class="section-title accent-rose">💐 Checklist e orçamento do casamento</h2>
+  <p class="section-hint">Preencha com calma, junto com a Karine. Os totais acima se atualizam sozinhos.</p>
+
+  <div class="table-wrap">
+    <table class="data-table" id="table-casamento" data-calc="casamento">
+      <thead>
+        <tr>
+          <th class="col-item">Item / Categoria</th>
+          <th>Fornecedor</th>
+          <th class="col-money">Orçado (R$)</th>
+          <th class="col-money">Gasto (R$)</th>
+          <th>Status</th>
+          <th class="col-obs">Observações</th>
+          <th class="col-del"></th>
+        </tr>
+      </thead>
+      <tbody id="body-casamento"></tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">Total</td>
+          <td class="col-money" data-foot="orcado">R$ 0,00</td>
+          <td class="col-money" data-foot="gasto">R$ 0,00</td>
+          <td colspan="3"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <button class="add-row-btn" data-add-row="casamento">+ adicionar item</button>
+
+  <h2 class="section-title accent-rose">🕊️ Padrinhos e madrinhas</h2>
+  <div class="table-wrap">
+    <table class="data-table" id="table-padrinhos">
+      <thead><tr><th>Nome</th><th>Papel</th><th>Lado</th><th>Contato</th><th class="col-del"></th></tr></thead>
+      <tbody id="body-padrinhos"></tbody>
+    </table>
+  </div>
+  <button class="add-row-btn" data-add-row="padrinhos">+ adicionar padrinho/madrinha</button>
+
+  <h2 class="section-title accent-rose">📋 Lista de convidados &amp; RSVP</h2>
+  <div class="table-wrap">
+    <table class="data-table" id="table-convidados">
+      <thead><tr><th>Nome</th><th>Lado</th><th>Confirmado?</th><th>Acompanhantes</th><th class="col-obs">Observações</th><th class="col-del"></th></tr></thead>
+      <tbody id="body-convidados"></tbody>
+    </table>
+  </div>
+  <button class="add-row-btn" data-add-row="convidados">+ adicionar convidado</button>
+
+  <h2 class="section-title accent-rose">🕰️ Cronograma do grande dia</h2>
+  <div class="table-wrap">
+    <table class="data-table" id="table-cronograma">
+      <thead><tr><th class="col-time">Horário</th><th>Evento</th><th class="col-del"></th></tr></thead>
+      <tbody id="body-cronograma"></tbody>
+    </table>
+  </div>
+  <button class="add-row-btn" data-add-row="cronograma">+ adicionar momento</button>
+
+</section>
+
+<!-- ===================== TAB 2 — NOSSA CASA ===================== -->
+<section id="panel-casa" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-casa">
+
+  <div class="tab-hero accent-sage">
+    <h1>🏡 Nossa casa</h1>
+    <p>Depois do "sim", vem o lar. Aqui organizamos tudo que precisamos comprar para montar a casa nova — cômodo por cômodo.</p>
+  </div>
+
+  <div class="summary-strip" data-summary="casa">
+    <div class="stat-tile accent-sage">
+      <span class="stat-label">Orçado</span>
+      <strong class="stat-value" data-sum="orcado">R$ 0,00</strong>
+    </div>
+    <div class="stat-tile accent-sage">
+      <span class="stat-label">Gasto até agora</span>
+      <strong class="stat-value" data-sum="gasto">R$ 0,00</strong>
+    </div>
+    <div class="stat-tile accent-sage">
+      <span class="stat-label">Restante</span>
+      <strong class="stat-value" data-sum="restante">R$ 0,00</strong>
+    </div>
+    <div class="stat-progress">
+      <div class="progress-track"><div class="progress-fill" data-sum="barra"></div></div>
+      <span class="progress-label"><span data-sum="percentual">0%</span> do orçamento já utilizado</span>
+    </div>
+  </div>
+
+  <div id="rooms-container"></div>
+
+</section>
+
+<!-- ===================== TAB 3 — LUA DE MEL ===================== -->
+<section id="panel-luademel" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-luademel">
+
+  <div class="tab-hero accent-gold">
+    <h1>🌴 Lua de mel</h1>
+    <p>Destinos incríveis dentro do Brasil para comemorar o início dessa nova vida. Toque no ❤ para favoritar os que mais combinam com vocês.</p>
+  </div>
+
+  <div class="dest-grid" id="dest-grid"></div>
+
+  <h2 class="section-title accent-gold">📊 Comparativo rápido</h2>
+  <div class="table-wrap">
+    <table class="data-table static-table" id="table-comparativo">
+      <thead><tr><th>Destino</th><th>Estado</th><th>Perfil</th><th class="col-money">Custo estimado (casal, 5-6 dias)</th><th>Melhor época</th></tr></thead>
+      <tbody id="body-comparativo"></tbody>
+    </table>
+  </div>
+  <p class="disclaimer">* Valores estimados com base em pesquisas de 2026 (passagens + hospedagem + passeios), variam bastante conforme época do ano e antecedência da compra. Use como referência inicial, não como cotação final.</p>
+
+  <h2 class="section-title accent-gold">✈️ Nosso orçamento da lua de mel</h2>
+  <p class="section-hint">Escolhido o destino, planejem os gastos reais aqui.</p>
+  <div class="table-wrap">
+    <table class="data-table" id="table-luademel" data-calc="luademel">
+      <thead>
+        <tr>
+          <th class="col-item">Item</th>
+          <th class="col-money">Orçado (R$)</th>
+          <th class="col-money">Gasto (R$)</th>
+          <th>Status</th>
+          <th class="col-obs">Observações</th>
+          <th class="col-del"></th>
+        </tr>
+      </thead>
+      <tbody id="body-luademel"></tbody>
+      <tfoot>
+        <tr>
+          <td>Total</td>
+          <td class="col-money" data-foot="orcado">R$ 0,00</td>
+          <td class="col-money" data-foot="gasto">R$ 0,00</td>
+          <td colspan="3"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <button class="add-row-btn" data-add-row="luademel">+ adicionar item</button>
+
+  <div class="summary-strip" data-summary="luademel">
+    <div class="stat-tile accent-gold">
+      <span class="stat-label">Orçado</span>
+      <strong class="stat-value" data-sum="orcado">R$ 0,00</strong>
+    </div>
+    <div class="stat-tile accent-gold">
+      <span class="stat-label">Gasto até agora</span>
+      <strong class="stat-value" data-sum="gasto">R$ 0,00</strong>
+    </div>
+    <div class="stat-tile accent-gold">
+      <span class="stat-label">Restante</span>
+      <strong class="stat-value" data-sum="restante">R$ 0,00</strong>
+    </div>
+    <div class="stat-progress">
+      <div class="progress-track"><div class="progress-fill" data-sum="barra"></div></div>
+      <span class="progress-label"><span data-sum="percentual">0%</span> do orçamento já utilizado</span>
+    </div>
+  </div>
+
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Feito com carinho para o casamento de Kainã &amp; Karine 💍 — os dados ficam salvos apenas neste navegador; use o botão <strong>Backup</strong> para não perder nada.</p>
+</footer>
+
+<!-- SVG symbols reusados (flourish decorativo) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="flourish">
+      <path d="M5 5 C 30 5, 40 15, 40 35 C 40 55, 55 65, 80 60" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <circle cx="80" cy="60" r="3" fill="currentColor"/>
+      <path d="M15 8 C 25 12, 28 22, 22 30" fill="none" stroke="currentColor" stroke-width="1"/>
+      <path d="M5 5 C 5 20, 10 28, 18 32" fill="none" stroke="currentColor" stroke-width="1"/>
+    </g>
+    <g id="divider-flower">
+      <line x1="0" y1="12" x2="120" y2="12" stroke="currentColor" stroke-width="1"/>
+      <line x1="180" y1="12" x2="300" y2="12" stroke="currentColor" stroke-width="1"/>
+      <circle cx="150" cy="12" r="4" fill="currentColor"/>
+      <circle cx="136" cy="12" r="3" fill="currentColor" opacity=".6"/>
+      <circle cx="164" cy="12" r="3" fill="currentColor" opacity=".6"/>
+    </g>
+  </defs>
+</svg>
+
+<script src="assets/script.js"></script>
+</body>
+</html>

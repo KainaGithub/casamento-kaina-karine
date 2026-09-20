@@ -36,6 +36,11 @@
       ],
       padrinhos: [row({ nome: '', papel: 'Padrinho', lado: 'Noivo', contato: '' }), row({ nome: '', papel: 'Madrinha', lado: 'Noiva', contato: '' }), row({ nome: '', papel: 'Padrinho', lado: 'Ambos', contato: '' })],
       convidados: Array.from({ length: 6 }, () => row({ nome: '', lado: 'Noivo', confirmado: 'Pendente', acompanhantes: 0, obs: '' })),
+      historia: [
+        row({ titulo: 'Como nos conhecemos', ano: '', descricao: '' }),
+        row({ titulo: 'O pedido de casamento', ano: '', descricao: '' }),
+        row({ titulo: 'Hoje', ano: '', descricao: '' }),
+      ],
       cronograma: [
         row({ horario: '14:00', evento: 'Preparação da noiva' }),
         row({ horario: '16:00', evento: 'Cerimônia' }),
@@ -46,12 +51,12 @@
         row({ horario: '00:00', evento: 'Encerramento' }),
       ],
       rooms: {
-        sala: ['Sofá', 'Rack / painel de TV', 'Televisão', 'Mesa de centro', 'Tapete', 'Cortinas', 'Poltrona', 'Quadros e decoração'].map(item => row({ item, loja: '', orcado: 0, gasto: 0, status: 'A comprar', obs: '' })),
-        quarto: ['Cama + colchão', 'Guarda-roupa', 'Criado-mudo', 'Cômoda', 'Roupa de cama', 'Cortinas do quarto'].map(item => row({ item, loja: '', orcado: 0, gasto: 0, status: 'A comprar', obs: '' })),
-        cozinha: ['Fogão', 'Geladeira', 'Micro-ondas', 'Armários planejados', 'Mesa de jantar + cadeiras', 'Panelas e utensílios', 'Filtro / purificador de água'].map(item => row({ item, loja: '', orcado: 0, gasto: 0, status: 'A comprar', obs: '' })),
-        banheiro: ['Armário / gabinete', 'Box de vidro', 'Espelho', 'Toalhas e tapetes'].map(item => row({ item, loja: '', orcado: 0, gasto: 0, status: 'A comprar', obs: '' })),
-        lavanderia: ['Máquina de lavar', 'Tanque', 'Ferro de passar', 'Varal'].map(item => row({ item, loja: '', orcado: 0, gasto: 0, status: 'A comprar', obs: '' })),
-        geral: ['Mudança / frete', 'Depósito caução / entrada do imóvel', 'Condomínio inicial', 'Instalação de internet / TV', 'Instalação de gás', 'Seguro residencial', 'Chaveiro / troca de fechaduras', 'Eletros pequenos (liquidificador, cafeteira...)'].map(item => row({ item, loja: '', orcado: 0, gasto: 0, status: 'A comprar', obs: '' })),
+        sala: ['Sofá', 'Rack / painel de TV', 'Televisão', 'Mesa de centro', 'Tapete', 'Cortinas', 'Poltrona', 'Quadros e decoração'].map(item => roomItem(item)),
+        quarto: ['Cama + colchão', 'Guarda-roupa', 'Criado-mudo', 'Cômoda', 'Roupa de cama', 'Cortinas do quarto'].map(item => roomItem(item)),
+        cozinha: ['Fogão', 'Geladeira', 'Micro-ondas', 'Armários planejados', 'Mesa de jantar + cadeiras', 'Panelas e utensílios', 'Filtro / purificador de água'].map(item => roomItem(item)),
+        banheiro: ['Armário / gabinete', 'Box de vidro', 'Espelho', 'Toalhas e tapetes'].map(item => roomItem(item)),
+        lavanderia: ['Máquina de lavar', 'Tanque', 'Ferro de passar', 'Varal'].map(item => roomItem(item)),
+        geral: ['Mudança / frete', 'Depósito caução / entrada do imóvel', 'Condomínio inicial', 'Instalação de internet / TV', 'Instalação de gás', 'Seguro residencial', 'Chaveiro / troca de fechaduras', 'Eletros pequenos (liquidificador, cafeteira...)'].map(item => roomItem(item)),
       },
       luademel: [
         row({ item: 'Passagens', orcado: 0, gasto: 0, status: 'A pesquisar', obs: '' }),
@@ -88,6 +93,8 @@
   });
 
   function gift(item, preco) { return row({ item, preco, status: 'Disponível', quemDeu: '', obs: '' }); }
+  function roomItem(item) { return row({ item, loja: '', orcado: 0, gasto: 0, status: 'A comprar', prioridade: 'Média', obs: '' }); }
+  function humanize(key) { return key.replace(/([A-Z])/g, ' $1').replace(/^./, c => c.toUpperCase()); }
 
   function row(obj) { return obj; }
 
@@ -138,6 +145,7 @@
         padrinhos: data.tables?.padrinhos || d.tables.padrinhos,
         convidados: data.tables?.convidados || d.tables.convidados,
         cronograma: data.tables?.cronograma || d.tables.cronograma,
+        historia: data.tables?.historia || d.tables.historia,
         luademel: data.tables?.luademel || d.tables.luademel,
         rooms: { ...d.tables.rooms, ...(data.tables?.rooms || {}) },
         presentes: { ...d.tables.presentes, ...(data.tables?.presentes || {}) },
@@ -172,9 +180,12 @@
       return td;
     }
 
+    const label = colDef.label || humanize(colDef.key);
+
     if (colDef.type === 'select') {
       const sel = document.createElement('select');
       sel.className = 'status-select';
+      sel.setAttribute('aria-label', label);
       colDef.options.forEach(opt => {
         const o = document.createElement('option');
         o.value = opt; o.textContent = opt;
@@ -184,10 +195,18 @@
       applyStatusClass(sel, value);
       sel.addEventListener('change', () => { onChange(sel.value); applyStatusClass(sel, sel.value); });
       td.appendChild(sel);
+    } else if (colDef.type === 'textarea') {
+      const ta = document.createElement('textarea');
+      ta.rows = 2;
+      ta.setAttribute('aria-label', label);
+      ta.value = value ?? '';
+      ta.addEventListener('input', () => onChange(ta.value));
+      td.appendChild(ta);
     } else {
       const input = document.createElement('input');
       input.type = colDef.type === 'number' ? 'number' : (colDef.type === 'time' ? 'time' : 'text');
       if (colDef.type === 'number') input.step = '0.01';
+      input.setAttribute('aria-label', label);
       input.value = value ?? '';
       input.addEventListener('input', () => onChange(colDef.type === 'number' ? (parseFloat(input.value) || 0) : input.value));
       td.appendChild(input);
@@ -236,10 +255,15 @@
       { key: 'acompanhantes', type: 'number' }, { key: 'obs', cls: 'col-obs' },
     ],
     cronograma: [{ key: 'horario', type: 'time', cls: 'col-time' }, { key: 'evento' }],
+    historia: [
+      { key: 'titulo', cls: 'col-item' }, { key: 'ano', cls: 'col-time' },
+      { key: 'descricao', type: 'textarea', cls: 'col-obs' },
+    ],
     room: [
       { key: 'item', cls: 'col-item' }, { key: 'loja' },
       { key: 'orcado', type: 'number', cls: 'col-money' }, { key: 'gasto', type: 'number', cls: 'col-money' },
       { key: 'status', type: 'select', options: ['A comprar', 'Comprado', 'Entregue', 'Montado'] },
+      { key: 'prioridade', type: 'select', options: ['Alta', 'Média', 'Baixa'] },
       { key: 'obs', cls: 'col-obs' },
     ],
     luademel: [
@@ -262,7 +286,8 @@
       padrinhos: { nome: '', papel: 'Padrinho', lado: 'Noivo', contato: '' },
       convidados: { nome: '', lado: 'Noivo', confirmado: 'Pendente', acompanhantes: 0, obs: '' },
       cronograma: { horario: '', evento: '' },
-      room: { item: '', loja: '', orcado: 0, gasto: 0, status: 'A comprar', obs: '' },
+      historia: { titulo: '', ano: '', descricao: '' },
+      room: { item: '', loja: '', orcado: 0, gasto: 0, status: 'A comprar', prioridade: 'Média', obs: '' },
       luademel: { item: '', orcado: 0, gasto: 0, status: 'A pesquisar', obs: '' },
       gift: { item: '', preco: 50, status: 'Disponível', quemDeu: '', obs: '' },
     };
@@ -274,8 +299,21 @@
     recomputeCasamento();
   }
   function renderPadrinhos() { renderTable('body-padrinhos', COLS.padrinhos, state.tables.padrinhos, renderPadrinhos, () => saveState()); }
-  function renderConvidados() { renderTable('body-convidados', COLS.convidados, state.tables.convidados, renderConvidados, () => saveState()); }
+  function renderConvidados() { renderTable('body-convidados', COLS.convidados, state.tables.convidados, renderConvidados, recomputeConvidados); recomputeConvidados(); }
   function renderCronograma() { renderTable('body-cronograma', COLS.cronograma, state.tables.cronograma, renderCronograma, () => saveState()); }
+  function renderHistoria() { renderTable('body-historia', COLS.historia, state.tables.historia, renderHistoria, () => saveState()); }
+
+  function recomputeConvidados() {
+    const rows = state.tables.convidados;
+    const confirmados = rows.filter(r => r.confirmado === 'Confirmado');
+    const recusados = rows.filter(r => r.confirmado === 'Recusado').length;
+    const pendentes = rows.filter(r => r.confirmado === 'Pendente').length;
+    const acompanhantes = confirmados.reduce((s, r) => s + (Number(r.acompanhantes) || 0), 0);
+    const total = confirmados.length + acompanhantes;
+    document.getElementById('convidados-summary').innerHTML =
+      `<strong>${confirmados.length}</strong> confirmados + <strong>${acompanhantes}</strong> acompanhantes = <strong>${total}</strong> pessoas · ${pendentes} pendentes · ${recusados} recusados`;
+    saveState();
+  }
   function renderLuademel() {
     renderTable('body-luademel', COLS.luademel, state.tables.luademel, () => { renderLuademel(); }, recomputeLuademel);
     recomputeLuademel();
@@ -351,7 +389,7 @@
             <thead><tr>
               <th class="col-item">Item</th><th>Loja</th>
               <th class="col-money">Orçado (R$)</th><th class="col-money">Gasto (R$)</th>
-              <th>Status</th><th class="col-obs">Observações</th><th class="col-del"></th>
+              <th>Status</th><th>Prioridade</th><th class="col-obs">Observações</th><th class="col-del"></th>
             </tr></thead>
             <tbody id="body-room-${roomKey}"></tbody>
           </table>
@@ -486,11 +524,13 @@
     document.querySelectorAll('[data-store]').forEach(el => {
       const key = el.dataset.store;
       if (state.simple[key] !== undefined) el.value = state.simple[key];
-      el.addEventListener('input', () => {
+      const handler = () => {
         state.simple[key] = el.value;
         saveState();
         if (key === 'casamento.data' || key === 'casamento.horario') updateCountdown();
-      });
+      };
+      el.addEventListener('input', handler);
+      if (el.tagName === 'SELECT') el.addEventListener('change', handler);
     });
   }
 
@@ -549,7 +589,7 @@
     document.querySelectorAll('[data-add-row]').forEach(btn => {
       btn.addEventListener('click', () => {
         const key = btn.dataset.addRow;
-        const renderers = { casamento: renderCasamento, padrinhos: renderPadrinhos, convidados: renderConvidados, cronograma: renderCronograma, luademel: renderLuademel };
+        const renderers = { casamento: renderCasamento, padrinhos: renderPadrinhos, convidados: renderConvidados, cronograma: renderCronograma, historia: renderHistoria, luademel: renderLuademel };
         state.tables[key].push(emptyRowFor(key));
         renderers[key]();
       });
@@ -602,6 +642,7 @@
     renderPadrinhos();
     renderConvidados();
     renderCronograma();
+    renderHistoria();
     renderRooms();
     renderLuademel();
     renderDestinations();

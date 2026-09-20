@@ -94,6 +94,16 @@
     </div>
   </div>
 
+  <h2 class="section-title accent-rose">📖 Nossa história</h2>
+  <p class="section-hint">Alguns momentos para contar aos convidados como tudo começou.</p>
+  <div class="table-wrap">
+    <table class="data-table" id="table-historia">
+      <thead><tr><th class="col-item">Momento</th><th class="col-time">Ano</th><th class="col-obs">O que aconteceu</th><th class="col-del"></th></tr></thead>
+      <tbody id="body-historia"></tbody>
+    </table>
+  </div>
+  <button class="add-row-btn" data-add-row="historia">+ adicionar momento</button>
+
   <!-- Resumo financeiro casamento -->
   <div class="summary-strip" data-summary="casamento">
     <div class="stat-tile accent-rose">
@@ -159,6 +169,7 @@
       <tbody id="body-convidados"></tbody>
     </table>
   </div>
+  <div class="mini-summary" id="convidados-summary"></div>
   <button class="add-row-btn" data-add-row="convidados">+ adicionar convidado</button>
 
   <h2 class="section-title accent-rose">🕰️ Cronograma do grande dia</h2>
@@ -169,6 +180,25 @@
     </table>
   </div>
   <button class="add-row-btn" data-add-row="cronograma">+ adicionar momento</button>
+
+  <h2 class="section-title accent-rose">ℹ️ Informações para os convidados</h2>
+  <p class="section-hint">Isso ajuda quem vai receber o convite — pode reaproveitar no grupo de WhatsApp da família.</p>
+  <div class="info-grid">
+    <label>Dress code
+      <input type="text" data-store="casamento.dressCode" placeholder="Ex.: Traje social, evitar branco">
+    </label>
+    <label>Como chegar (link do mapa)
+      <input type="text" data-store="casamento.mapaLink" placeholder="Ex.: link do Google Maps">
+    </label>
+    <label>Crianças são bem-vindas?
+      <select data-store="casamento.criancas">
+        <option>A definir</option><option>Sim, todas as idades</option><option>Sim, sem espaço kids</option><option>Cerimônia adults only</option>
+      </select>
+    </label>
+    <label>Estacionamento
+      <input type="text" data-store="casamento.estacionamento" placeholder="Ex.: local próprio, valet, na rua">
+    </label>
+  </div>
 
 </section>
 

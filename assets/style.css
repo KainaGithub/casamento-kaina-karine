@@ -294,6 +294,19 @@ select.status-select[value] {}
 .status-Contratado, .status-A-comprar, .status-Reservado { color: var(--status-progress); }
 .status-Pago, .status-Comprado, .status-Entregue, .status-Confirmado, .status-Recebido { color: var(--status-done); }
 .status-Cancelado, .status-Atrasado { color: var(--status-critical); }
+.status-Alta { color: var(--status-critical); }
+.status-Média { color: var(--status-progress); }
+.status-Baixa { color: var(--status-pending); }
+
+.data-table textarea {
+  width: 100%;
+  min-width: 160px;
+  resize: vertical;
+  border-color: transparent;
+  background: transparent;
+  font-family: 'Nunito', sans-serif;
+}
+.data-table textarea:hover { border-color: var(--border); }
 
 .add-row-btn {
   margin-top: .6rem;
@@ -308,6 +321,26 @@ select.status-select[value] {}
   cursor: pointer;
 }
 .add-row-btn:hover { border-color: var(--rose); color: var(--rose-dark); }
+
+.mini-summary {
+  font-size: .85rem;
+  color: var(--ink-soft);
+  background: var(--cream-2);
+  border-radius: 8px;
+  padding: .5rem .8rem;
+  margin: .6rem 0 0;
+  display: inline-block;
+}
+.mini-summary strong { color: var(--ink); }
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap: .9rem 1.2rem;
+  margin: 1rem 0 2rem;
+}
+.info-grid label { display: flex; flex-direction: column; gap: .3rem; font-size: .8rem; font-weight: 700; color: var(--ink-soft); }
+@media (max-width: 720px) { .info-grid { grid-template-columns: 1fr; } }
 
 /* ---------- Rooms (Nossa Casa) ---------- */
 .room-block { margin: 2.25rem 0; }

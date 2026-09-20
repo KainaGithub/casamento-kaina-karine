@@ -270,17 +270,26 @@ main { max-width: 980px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; position:
   padding: .6rem .7rem;
   border-bottom: 1px solid var(--border);
 }
-.data-table td { padding: .4rem .5rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.data-table td { padding: .45rem .5rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
 .data-table tbody tr:hover { background: var(--cream); }
 .data-table tfoot td { font-weight: 800; background: var(--cream-2); color: var(--ink); }
-.data-table input, .data-table select { width: 100%; min-width: 90px; border-color: transparent; background: transparent; }
-.data-table input:hover, .data-table select:hover { border-color: var(--border); }
-.data-table .col-money input { min-width: 90px; }
-.data-table .col-item input { min-width: 160px; font-weight: 700; }
-.data-table .col-obs input { min-width: 160px; }
-.data-table .col-time input { min-width: 70px; }
+.data-table input, .data-table select, .data-table textarea {
+  width: 100%;
+  min-width: 130px;
+  border-color: transparent;
+  background: transparent;
+  padding: .4rem .5rem;
+  font-size: .92rem;
+}
+.data-table input:hover, .data-table select:hover, .data-table textarea:hover { border-color: var(--border); }
+.data-table input:focus, .data-table select:focus, .data-table textarea:focus { border-color: var(--rose); }
+.data-table .col-money input { min-width: 110px; }
+.data-table .col-item input { min-width: 260px; font-weight: 700; }
+.data-table .col-obs input, .data-table .col-obs textarea { min-width: 240px; }
+.data-table .col-time input { min-width: 90px; }
+.data-table select.status-select { min-width: 155px; padding-right: .3rem; }
 .col-del { width: 36px; }
-.col-link { width: 92px; }
+.col-link { width: 100px; }
 
 .row-del-btn {
   border: none; background: transparent; color: var(--ink-faint);
@@ -288,8 +297,7 @@ main { max-width: 980px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; position:
 }
 .row-del-btn:hover { color: var(--status-critical); }
 
-select.status-select { font-weight: 700; border-radius: 6px; padding: .3rem; }
-select.status-select[value] {}
+select.status-select { font-weight: 700; border-radius: 6px; }
 .status-A-pesquisar, .status-Disponível { color: var(--status-pending); }
 .status-Contratado, .status-A-comprar, .status-Reservado { color: var(--status-progress); }
 .status-Pago, .status-Comprado, .status-Entregue, .status-Confirmado, .status-Recebido { color: var(--status-done); }
@@ -298,15 +306,7 @@ select.status-select[value] {}
 .status-Média { color: var(--status-progress); }
 .status-Baixa { color: var(--status-pending); }
 
-.data-table textarea {
-  width: 100%;
-  min-width: 160px;
-  resize: vertical;
-  border-color: transparent;
-  background: transparent;
-  font-family: 'Nunito', sans-serif;
-}
-.data-table textarea:hover { border-color: var(--border); }
+.data-table textarea { resize: vertical; font-family: 'Nunito', sans-serif; }
 
 .add-row-btn {
   margin-top: .6rem;

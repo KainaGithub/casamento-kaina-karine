@@ -1,31 +1,35 @@
 :root {
-  --cream: #fdf6f0;
-  --cream-2: #fbeee6;
-  --white: #fffaf7;
-  --ink: #4a3b3b;
-  --ink-soft: #7a6a68;
-  --ink-faint: #a89693;
-  --border: #ecd9d3;
+  --cream: #fdf6ec;
+  --cream-2: #f8ecd9;
+  --white: #fffdf8;
+  --ink: #4a3a2e;
+  --ink-soft: #7a6a57;
+  --ink-faint: #a89a86;
+  --border: #ecdcc4;
 
-  --rose: #c1607a;
-  --rose-dark: #9c4761;
-  --rose-tint: #f6e3e8;
+  --rose: #d97a5a;
+  --rose-dark: #b85c3f;
+  --rose-tint: #f6ddd0;
 
-  --sage: #71926e;
-  --sage-dark: #55744f;
-  --sage-tint: #e6ede2;
+  --sage: #7c8f5e;
+  --sage-dark: #5f7245;
+  --sage-tint: #e6ecd9;
 
-  --gold: #b9873a;
-  --gold-dark: #8f6524;
-  --gold-tint: #f4e8d3;
+  --gold: #a9763f;
+  --gold-dark: #7f5827;
+  --gold-tint: #f0e0c4;
 
-  --status-pending: #9c948e;
-  --status-progress: #5f7fa3;
-  --status-done: #5c8a5f;
+  --mauve: #a85a72;
+  --mauve-dark: #833f57;
+  --mauve-tint: #f2dbe1;
+
+  --status-pending: #a89a86;
+  --status-progress: #6b85a8;
+  --status-done: #3f8f7a;
   --status-critical: #b6484f;
 
   --radius: 14px;
-  --shadow: 0 6px 24px rgba(150, 90, 100, .12);
+  --shadow: 0 6px 24px rgba(140, 90, 60, .14);
 }
 
 * { box-sizing: border-box; }
@@ -92,6 +96,9 @@ img, svg { display: block; }
 }
 .tab-btn:hover { border-color: var(--rose); color: var(--rose-dark); }
 .tab-btn.is-active { background: var(--rose); color: var(--white); border-color: var(--rose); }
+.tab-btn.is-active[data-tab="casa"] { background: var(--sage); border-color: var(--sage); }
+.tab-btn.is-active[data-tab="luademel"] { background: var(--gold); border-color: var(--gold); }
+.tab-btn.is-active[data-tab="presentes"] { background: var(--mauve); border-color: var(--mauve); }
 .tab-ico { margin-right: .25rem; }
 
 .header-actions { display: flex; gap: .5rem; }
@@ -119,12 +126,14 @@ main { max-width: 980px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; position:
 .tab-hero h1 { font-size: 2rem; margin-bottom: .5rem; }
 .tab-hero.accent-sage h1 { color: var(--sage-dark); }
 .tab-hero.accent-gold h1 { color: var(--gold-dark); }
+.tab-hero.accent-mauve h1 { color: var(--mauve-dark); }
 .tab-hero p { color: var(--ink-soft); max-width: 560px; margin: 0 auto; }
 
 .section-title { margin: 2.5rem 0 .35rem; font-size: 1.4rem; }
 .section-title.accent-rose { color: var(--rose-dark); }
 .section-title.accent-sage { color: var(--sage-dark); }
 .section-title.accent-gold { color: var(--gold-dark); }
+.section-title.accent-mauve { color: var(--mauve-dark); }
 .section-hint { color: var(--ink-faint); font-size: .9rem; margin: 0 0 1rem; }
 
 /* ---------- Invite card ---------- */
@@ -138,7 +147,7 @@ main { max-width: 980px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; position:
   box-shadow: var(--shadow);
   overflow: hidden;
 }
-.corner { position: absolute; width: 70px; height: 70px; color: var(--rose); opacity: .55; }
+.corner { position: absolute; width: 70px; height: 70px; opacity: .85; }
 .corner-tl { top: 10px; left: 10px; }
 .corner-tr { top: 10px; right: 10px; transform: scaleX(-1); }
 .corner-bl { bottom: 10px; left: 10px; transform: scaleY(-1); }
@@ -239,6 +248,7 @@ main { max-width: 980px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; position:
 .stat-tile.accent-rose { border-left-color: var(--rose); }
 .stat-tile.accent-sage { border-left-color: var(--sage); }
 .stat-tile.accent-gold { border-left-color: var(--gold); }
+.stat-tile.accent-mauve { border-left-color: var(--mauve); }
 .stat-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--ink-faint); }
 .stat-value { font-family: 'Playfair Display', serif; font-size: 1.25rem; color: var(--ink); }
 
@@ -270,6 +280,7 @@ main { max-width: 980px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; position:
 .data-table .col-obs input { min-width: 160px; }
 .data-table .col-time input { min-width: 70px; }
 .col-del { width: 36px; }
+.col-link { width: 92px; }
 
 .row-del-btn {
   border: none; background: transparent; color: var(--ink-faint);
@@ -279,9 +290,9 @@ main { max-width: 980px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; position:
 
 select.status-select { font-weight: 700; border-radius: 6px; padding: .3rem; }
 select.status-select[value] {}
-.status-A-pesquisar { color: var(--status-pending); }
-.status-Contratado, .status-A-comprar { color: var(--status-progress); }
-.status-Pago, .status-Comprado, .status-Entregue, .status-Confirmado { color: var(--status-done); }
+.status-A-pesquisar, .status-Disponível { color: var(--status-pending); }
+.status-Contratado, .status-A-comprar, .status-Reservado { color: var(--status-progress); }
+.status-Pago, .status-Comprado, .status-Entregue, .status-Confirmado, .status-Recebido { color: var(--status-done); }
 .status-Cancelado, .status-Atrasado { color: var(--status-critical); }
 
 .add-row-btn {
@@ -305,6 +316,36 @@ select.status-select[value] {}
   font-size: 1.15rem; color: var(--sage-dark); margin-bottom: .6rem;
 }
 .room-subtotal { margin-left: auto; font-size: .85rem; font-family: 'Nunito', sans-serif; color: var(--ink-soft); font-weight: 700; }
+.room-title.accent-mauve { color: var(--mauve-dark); }
+
+/* ---------- Presentes ---------- */
+.magalu-callout {
+  display: flex;
+  gap: .8rem;
+  align-items: flex-start;
+  background: var(--mauve-tint);
+  border: 1px solid var(--mauve);
+  border-radius: var(--radius);
+  padding: 1rem 1.2rem;
+  margin: 1.5rem 0 2rem;
+}
+.magalu-ico { font-size: 1.6rem; }
+.magalu-callout strong { color: var(--mauve-dark); }
+.magalu-callout p { margin: .3rem 0; font-size: .88rem; color: var(--ink-soft); }
+.magalu-callout a { color: var(--mauve-dark); font-weight: 700; font-size: .85rem; text-decoration: none; border-bottom: 1px solid var(--mauve); }
+.magalu-callout a:hover { color: var(--mauve); }
+
+.magalu-link-btn {
+  border: 1px solid var(--border);
+  background: var(--cream);
+  border-radius: 999px;
+  padding: .3rem .6rem;
+  font-size: .78rem;
+  cursor: pointer;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.magalu-link-btn:hover { border-color: var(--mauve); color: var(--mauve-dark); }
 
 /* ---------- Honeymoon destination cards ---------- */
 .dest-grid {

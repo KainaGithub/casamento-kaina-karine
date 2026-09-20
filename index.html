@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kainã &amp; Karine — Nosso Casamento</title>
-<meta name="description" content="Planejamento do casamento de Kainã e Karine: convite, orçamento da casa nova e roteiro de lua de mel.">
+<meta name="description" content="Planejamento do casamento de Kainã e Karine: convite, orçamento da casa nova, roteiro de lua de mel e lista de presentes.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💍</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,6 +30,9 @@
     <button class="tab-btn" data-tab="luademel" role="tab" aria-selected="false" id="tab-btn-luademel">
       <span class="tab-ico">🌴</span> Lua de Mel
     </button>
+    <button class="tab-btn" data-tab="presentes" role="tab" aria-selected="false" id="tab-btn-presentes">
+      <span class="tab-ico">🎁</span> Presentes
+    </button>
   </nav>
   <div class="header-actions">
     <button id="btn-export" class="ghost-btn" title="Baixar backup dos dados preenchidos">⬇ Backup</button>
@@ -46,17 +49,17 @@
 <section id="panel-casamento" class="tab-panel is-active" role="tabpanel" aria-labelledby="tab-btn-casamento">
 
   <div class="invite" id="invite-card">
-    <svg class="corner corner-tl" viewBox="0 0 120 120" aria-hidden="true"><use href="#flourish"/></svg>
-    <svg class="corner corner-tr" viewBox="0 0 120 120" aria-hidden="true"><use href="#flourish"/></svg>
-    <svg class="corner corner-bl" viewBox="0 0 120 120" aria-hidden="true"><use href="#flourish"/></svg>
-    <svg class="corner corner-br" viewBox="0 0 120 120" aria-hidden="true"><use href="#flourish"/></svg>
+    <svg class="corner corner-tl" viewBox="0 0 90 90" aria-hidden="true"><use href="#floral-corner"/></svg>
+    <svg class="corner corner-tr" viewBox="0 0 90 90" aria-hidden="true"><use href="#floral-corner"/></svg>
+    <svg class="corner corner-bl" viewBox="0 0 90 90" aria-hidden="true"><use href="#floral-corner"/></svg>
+    <svg class="corner corner-br" viewBox="0 0 90 90" aria-hidden="true"><use href="#floral-corner"/></svg>
 
     <p class="invite-kicker">Com muito amor, convidamos você para celebrar</p>
     <h1 class="invite-names">Kainã <span>&amp;</span> Karine</h1>
     <p class="invite-sub">vamos nos casar!</p>
 
     <div class="invite-divider" aria-hidden="true">
-      <svg viewBox="0 0 300 24"><use href="#divider-flower"/></svg>
+      <svg viewBox="0 0 300 26"><use href="#divider-bow"/></svg>
     </div>
 
     <div class="invite-fields">
@@ -267,6 +270,46 @@
 
 </section>
 
+<!-- ===================== TAB 4 — PRESENTES ===================== -->
+<section id="panel-presentes" class="tab-panel" role="tabpanel" aria-labelledby="tab-btn-presentes">
+
+  <div class="tab-hero accent-mauve">
+    <h1>🎁 Lista de presentes</h1>
+    <p>Sugestões separadas por categoria, com itens a partir de R$ 50, inspiradas no catálogo do Magazine Luiza. Use como lista de desejos e ajuste conforme forem chegando os presentes.</p>
+  </div>
+
+  <div class="magalu-callout">
+    <span class="magalu-ico">🛒</span>
+    <div>
+      <strong>Quer receber os presentes de verdade pela internet?</strong>
+      <p>O Magazine Luiza tem um serviço oficial de lista de casamento (parceria "Quero de Casamento"), onde os convidados compram direto pelo site e vocês recebem o crédito. Vale criar a lista oficial lá e usar esta página só para organizar as ideias.</p>
+      <a href="https://www.magazineluiza.com.br/busca/presentes+de+casamento/" target="_blank" rel="noopener">Ver presentes de casamento no Magazine Luiza →</a>
+    </div>
+  </div>
+
+  <div class="summary-strip" id="gift-summary">
+    <div class="stat-tile accent-mauve">
+      <span class="stat-label">Itens na lista</span>
+      <strong class="stat-value" id="gift-total-itens">0</strong>
+    </div>
+    <div class="stat-tile accent-mauve">
+      <span class="stat-label">Valor estimado</span>
+      <strong class="stat-value" id="gift-valor-total">R$ 0,00</strong>
+    </div>
+    <div class="stat-tile accent-mauve">
+      <span class="stat-label">Já recebidos</span>
+      <strong class="stat-value" id="gift-recebidos">0</strong>
+    </div>
+    <div class="stat-progress">
+      <div class="progress-track"><div class="progress-fill" id="gift-progress-fill"></div></div>
+      <span class="progress-label"><span id="gift-progress-pct">0%</span> da lista já recebida</span>
+    </div>
+  </div>
+
+  <div id="gifts-container"></div>
+
+</section>
+
 </main>
 
 <footer class="site-footer">
@@ -276,18 +319,28 @@
 <!-- SVG symbols reusados (flourish decorativo) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <g id="flourish">
-      <path d="M5 5 C 30 5, 40 15, 40 35 C 40 55, 55 65, 80 60" fill="none" stroke="currentColor" stroke-width="1.4"/>
-      <circle cx="80" cy="60" r="3" fill="currentColor"/>
-      <path d="M15 8 C 25 12, 28 22, 22 30" fill="none" stroke="currentColor" stroke-width="1"/>
-      <path d="M5 5 C 5 20, 10 28, 18 32" fill="none" stroke="currentColor" stroke-width="1"/>
+    <g id="floral-corner">
+      <path d="M8 82 C 22 62, 16 46, 36 40" fill="none" stroke="#7c8f5e" stroke-width="2"/>
+      <path d="M18 80 C 13 69, 22 60, 31 63" fill="#8a9b6a" opacity=".9"/>
+      <path d="M42 55 C 35 48, 41 39, 50 43" fill="#7c8f5e" opacity=".9"/>
+      <circle cx="16" cy="24" r="5" fill="#eab8ab"/>
+      <circle cx="26" cy="16" r="3.4" fill="#e2a98f"/>
+      <g transform="translate(52 30)">
+        <ellipse cx="0" cy="-11" rx="9" ry="13" fill="#e2a98f" opacity=".92"/>
+        <ellipse cx="9" cy="-4" rx="9" ry="13" fill="#d97a5a" opacity=".85" transform="rotate(72 9 -4)"/>
+        <ellipse cx="6" cy="7" rx="9" ry="13" fill="#e2a98f" opacity=".85" transform="rotate(144 6 7)"/>
+        <ellipse cx="-6" cy="7" rx="9" ry="13" fill="#d97a5a" opacity=".85" transform="rotate(216 -6 7)"/>
+        <ellipse cx="-9" cy="-4" rx="9" ry="13" fill="#e2a98f" opacity=".85" transform="rotate(288 -9 -4)"/>
+        <circle cx="0" cy="0" r="6" fill="#f4e0c8"/>
+      </g>
     </g>
-    <g id="divider-flower">
-      <line x1="0" y1="12" x2="120" y2="12" stroke="currentColor" stroke-width="1"/>
-      <line x1="180" y1="12" x2="300" y2="12" stroke="currentColor" stroke-width="1"/>
-      <circle cx="150" cy="12" r="4" fill="currentColor"/>
-      <circle cx="136" cy="12" r="3" fill="currentColor" opacity=".6"/>
-      <circle cx="164" cy="12" r="3" fill="currentColor" opacity=".6"/>
+    <g id="divider-bow">
+      <line x1="0" y1="13" x2="112" y2="13" stroke="#a9763f" stroke-width="1.5"/>
+      <line x1="188" y1="13" x2="300" y2="13" stroke="#a9763f" stroke-width="1.5"/>
+      <path d="M150 13 L128 2 C 118 -3, 113 9, 126 13 C 113 17, 118 29, 128 24 Z" fill="#a9763f" opacity=".88"/>
+      <path d="M150 13 L172 2 C 182 -3, 187 9, 174 13 C 187 17, 182 29, 172 24 Z" fill="#a9763f" opacity=".88"/>
+      <path d="M150 13 L144 24 L150 20 L156 24 Z" fill="#8a5f3a"/>
+      <circle cx="150" cy="13" r="4" fill="#7f5827"/>
     </g>
   </defs>
 </svg>

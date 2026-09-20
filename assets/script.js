@@ -61,14 +61,44 @@
         row({ item: 'Taxas (ambiental, embarque etc.)', orcado: 0, gasto: 0, status: 'A pesquisar', obs: '' }),
         row({ item: 'Seguro viagem', orcado: 0, gasto: 0, status: 'A pesquisar', obs: '' }),
       ],
+      presentes: {
+        cozinha: [
+          gift('Jogo de panelas (5 peças)', 299.9), gift('Liquidificador', 149.9),
+          gift('Fritadeira elétrica (airfryer)', 349.9), gift('Faqueiro (24 peças)', 129.9),
+          gift('Aparelho de jantar (20 peças)', 249.9), gift('Jogo de facas', 99.9),
+        ],
+        quarto: [
+          gift('Jogo de cama casal/queen', 189.9), gift('Travesseiros (par)', 89.9),
+          gift('Edredom casal', 219.9),
+        ],
+        sala: [
+          gift('Jogo de toalhas de banho', 119.9), gift('Tapete para sala', 179.9),
+          gift('Kit de quadros decorativos', 99.9),
+        ],
+        eletro: [
+          gift('Cafeteira elétrica', 179.9), gift('Aspirador de pó', 349.9),
+          gift('Sanduicheira / grill elétrico', 99.9), gift('Ferro de passar a vapor', 89.9),
+        ],
+        utilidades: [
+          gift('Jogo de copos / taças', 69.9), gift('Kit potes herméticos organizadores', 79.9),
+          gift('Jogo de panos de cozinha + luvas', 59.9),
+        ],
+      },
     },
   });
+
+  function gift(item, preco) { return row({ item, preco, status: 'Disponível', quemDeu: '', obs: '' }); }
 
   function row(obj) { return obj; }
 
   const ROOM_LABELS = {
     sala: '🛋️ Sala de estar', quarto: '🛏️ Quarto', cozinha: '🍳 Cozinha',
     banheiro: '🛁 Banheiro', lavanderia: '🧺 Área de serviço', geral: '📦 Mudança e itens gerais',
+  };
+
+  const GIFT_LABELS = {
+    cozinha: '🍳 Cozinha', quarto: '🛏️ Quarto', sala: '🛋️ Sala e decoração',
+    eletro: '🔌 Eletrodomésticos', utilidades: '🧺 Utilidades',
   };
 
   const DESTINATIONS = [
@@ -110,6 +140,7 @@
         cronograma: data.tables?.cronograma || d.tables.cronograma,
         luademel: data.tables?.luademel || d.tables.luademel,
         rooms: { ...d.tables.rooms, ...(data.tables?.rooms || {}) },
+        presentes: { ...d.tables.presentes, ...(data.tables?.presentes || {}) },
       },
     };
   }
@@ -126,9 +157,20 @@
   /* Generic editable table rendering                                  */
   /* ---------------------------------------------------------------- */
 
-  function buildCell(colDef, value, onChange) {
+  function buildCell(colDef, value, onChange, r) {
     const td = document.createElement('td');
     if (colDef.cls) td.className = colDef.cls;
+
+    if (colDef.type === 'action') {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'magalu-link-btn';
+      btn.textContent = colDef.label;
+      btn.title = 'Buscar este item no Magazine Luiza';
+      btn.addEventListener('click', () => colDef.onClick(r));
+      td.appendChild(btn);
+      return td;
+    }
 
     if (colDef.type === 'select') {
       const sel = document.createElement('select');
@@ -163,7 +205,7 @@
     rows.forEach((r, idx) => {
       const tr = document.createElement('tr');
       columns.forEach(col => {
-        tr.appendChild(buildCell(col, r[col.key], val => { r[col.key] = val; onAnyChange && onAnyChange(); saveState(); }));
+        tr.appendChild(buildCell(col, r[col.key], val => { r[col.key] = val; onAnyChange && onAnyChange(); saveState(); }, r));
       });
       const tdDel = document.createElement('td');
       tdDel.className = 'col-del';
@@ -206,6 +248,12 @@
       { key: 'status', type: 'select', options: ['A pesquisar', 'Reservado', 'Pago'] },
       { key: 'obs', cls: 'col-obs' },
     ],
+    gift: [
+      { key: 'item', cls: 'col-item' }, { key: 'preco', type: 'number', cls: 'col-money' },
+      { key: 'status', type: 'select', options: ['Disponível', 'Reservado', 'Recebido'] },
+      { key: 'quemDeu' }, { key: 'obs', cls: 'col-obs' },
+      { type: 'action', cls: 'col-link', label: '🔎 Magalu', onClick: r => window.open(`https://www.magazineluiza.com.br/busca/${encodeURIComponent(r.item || '')}/`, '_blank', 'noopener') },
+    ],
   };
 
   function emptyRowFor(tableKey) {
@@ -216,6 +264,7 @@
       cronograma: { horario: '', evento: '' },
       room: { item: '', loja: '', orcado: 0, gasto: 0, status: 'A comprar', obs: '' },
       luademel: { item: '', orcado: 0, gasto: 0, status: 'A pesquisar', obs: '' },
+      gift: { item: '', preco: 50, status: 'Disponível', quemDeu: '', obs: '' },
     };
     return { ...blanks[tableKey] };
   }
@@ -325,6 +374,66 @@
   function renderRoomTable(roomKey) {
     renderTable('body-room-' + roomKey, COLS.room, state.tables.rooms[roomKey], () => renderRoomTable(roomKey), recomputeCasa);
     recomputeCasa();
+  }
+
+  /* ---------------------------------------------------------------- */
+  /* Presentes                                                        */
+  /* ---------------------------------------------------------------- */
+
+  function renderGifts() {
+    const container = document.getElementById('gifts-container');
+    container.innerHTML = '';
+    Object.keys(state.tables.presentes).forEach(catKey => {
+      const block = document.createElement('div');
+      block.className = 'room-block';
+      block.innerHTML = `
+        <h3 class="room-title accent-mauve">${GIFT_LABELS[catKey] || catKey}</h3>
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead><tr>
+              <th class="col-item">Item</th><th class="col-money">Preço estimado (R$)</th>
+              <th>Status</th><th>Quem deu / reservou</th><th class="col-obs">Observações</th>
+              <th class="col-link"></th><th class="col-del"></th>
+            </tr></thead>
+            <tbody id="body-gift-${catKey}"></tbody>
+          </table>
+        </div>
+        <button class="add-row-btn" data-add-gift="${catKey}">+ adicionar presente</button>
+      `;
+      container.appendChild(block);
+      renderGiftCategory(catKey);
+    });
+
+    container.querySelectorAll('[data-add-gift]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const catKey = btn.dataset.addGift;
+        state.tables.presentes[catKey].push(emptyRowFor('gift'));
+        renderGiftCategory(catKey);
+      });
+    });
+  }
+
+  function renderGiftCategory(catKey) {
+    renderTable('body-gift-' + catKey, COLS.gift, state.tables.presentes[catKey], () => renderGiftCategory(catKey), recomputeGifts);
+    recomputeGifts();
+  }
+
+  function recomputeGifts() {
+    let total = 0, valor = 0, recebidos = 0;
+    Object.values(state.tables.presentes).forEach(rows => {
+      rows.forEach(r => {
+        total++;
+        valor += Number(r.preco) || 0;
+        if (r.status === 'Recebido') recebidos++;
+      });
+    });
+    const pct = total > 0 ? Math.round((recebidos / total) * 100) : 0;
+    document.getElementById('gift-total-itens').textContent = total;
+    document.getElementById('gift-valor-total').textContent = money(valor);
+    document.getElementById('gift-recebidos').textContent = recebidos;
+    document.getElementById('gift-progress-fill').style.width = pct + '%';
+    document.getElementById('gift-progress-pct').textContent = pct + '%';
+    saveState();
   }
 
   /* ---------------------------------------------------------------- */
@@ -496,6 +605,7 @@
     renderRooms();
     renderLuademel();
     renderDestinations();
+    renderGifts();
   }
 
   document.addEventListener('DOMContentLoaded', () => {

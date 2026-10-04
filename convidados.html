@@ -112,13 +112,22 @@
   }
   .pix-qr img, .pix-qr canvas{display:block}
   .pix-badge{
-    position:absolute; top:-12px; right:-12px;
+    position:absolute; bottom:-12px; right:-12px;
     width:40px; height:40px; border-radius:50%;
     background:var(--blue-deep); color:#fff;
     display:flex; align-items:center; justify-content:center;
     font-family:'Playfair Display',serif; font-weight:700; font-size:.72rem;
     box-shadow:0 4px 10px rgba(44,66,86,.4);
     border:2px solid var(--paper);
+  }
+  .pix-qr-logo{
+    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+    width:42px; height:42px; border-radius:50%;
+    background:#ffffff; border:2px solid var(--blue-deep);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display',serif; font-weight:700; font-size:.68rem; color:var(--blue-deep);
+    box-shadow:0 1px 4px rgba(0,0,0,.2);
+    pointer-events:none;
   }
   .pix-info{flex:1; min-width:200px; text-align:left}
   .pix-info strong{display:block; font-family:'Cormorant Garamond',serif; color:var(--ink); font-size:1.05rem; margin-bottom:6px}
@@ -254,6 +263,7 @@
         <div class="pix-qr-frame">
           <div id="pix-qr" class="pix-qr"></div>
           <span class="pix-badge">K&amp;K</span>
+          <span class="pix-qr-logo" aria-hidden="true">K&amp;K</span>
         </div>
         <p class="pix-qr-note">⚠ Abra o <strong>app do seu banco</strong> e use a opção "Pix &gt; Pagar com QR Code" — a câmera comum do celular não reconhece Pix.</p>
       </div>
@@ -288,7 +298,7 @@
         text: PIX_PAYLOAD,
         width: 220,
         height: 220,
-        colorDark: '#000000',
+        colorDark: '#2c4256',
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.H
       });

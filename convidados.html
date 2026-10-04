@@ -96,7 +96,14 @@
     background:var(--paper); border:1px solid var(--blue-pale); border-radius:14px;
     padding:24px; margin-top:30px; justify-content:center;
   }
+  .pix-qr-col{display:flex; flex-direction:column; align-items:center; gap:10px; flex-shrink:0}
   .pix-qr-frame{position:relative; flex-shrink:0}
+  .pix-qr-note{
+    margin:0; max-width:190px; font-size:.74rem; line-height:1.4;
+    color:var(--blue-deep); background:var(--blue-wash);
+    border:1px solid var(--blue-pale); border-radius:8px; padding:8px 10px;
+  }
+  .pix-qr-fallback{font-size:.78rem; color:var(--ink-soft); padding:8px; text-align:center}
   .pix-qr{
     width:240px; height:240px;
     display:flex; align-items:center; justify-content:center;
@@ -243,13 +250,16 @@
     </div>
 
     <div class="pix-box">
-      <div class="pix-qr-frame">
-        <div id="pix-qr" class="pix-qr"></div>
-        <span class="pix-badge">K&amp;K</span>
+      <div class="pix-qr-col">
+        <div class="pix-qr-frame">
+          <div id="pix-qr" class="pix-qr"></div>
+          <span class="pix-badge">K&amp;K</span>
+        </div>
+        <p class="pix-qr-note">⚠ Abra o <strong>app do seu banco</strong> e use a opção "Pix &gt; Pagar com QR Code" — a câmera comum do celular não reconhece Pix.</p>
       </div>
       <div class="pix-info">
         <strong>Quer contribuir de outro jeito?</strong>
-        <p>Qualquer valor é bem-vindo! Abra o Pix no app do seu banco e use a opção "Pagar com QR Code" (a câmera comum do celular não reconhece Pix) — ou copie a chave abaixo.</p>
+        <p>Qualquer valor é bem-vindo! Escaneie o QR acima pelo app do banco, ou copie a chave abaixo.</p>
         <div class="pix-key-row">
           <span class="pix-key" id="pix-key-text" data-raw="49546119890">495.461.198-90</span>
           <button type="button" class="pix-copy-btn" id="pix-copy-btn">Copiar</button>
@@ -261,23 +271,32 @@
   <footer class="sig">Com carinho, Kainã &amp; Karine 💙</footer>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="assets/qrcode.min.js"></script>
 <script>
 (function(){
   // Payload Pix (BR Code) estático — chave CPF, sem valor fixo, para
   // que cada convidado digite o valor que quiser ao escanear.
   // Testado offline (gerado e relido com decodificador) antes de publicar.
+  // Biblioteca hospedada localmente (assets/qrcode.min.js) para não
+  // depender de um CDN externo que pode falhar ou ser bloqueado.
   var PIX_PAYLOAD = "00020101021126330014br.gov.bcb.pix0111495461198905204000053039865802BR5914KAINA E KARINE6007DIADEMA62070503***63047BC7";
 
-  if (window.QRCode) {
-    new QRCode(document.getElementById('pix-qr'), {
-      text: PIX_PAYLOAD,
-      width: 220,
-      height: 220,
-      colorDark: '#000000',
-      colorLight: '#ffffff',
-      correctLevel: QRCode.CorrectLevel.H
-    });
+  var qrHost = document.getElementById('pix-qr');
+  try {
+    if (window.QRCode && qrHost) {
+      new QRCode(qrHost, {
+        text: PIX_PAYLOAD,
+        width: 220,
+        height: 220,
+        colorDark: '#000000',
+        colorLight: '#ffffff',
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    } else if (qrHost) {
+      qrHost.innerHTML = '<span class="pix-qr-fallback">Não foi possível carregar o QR Code agora. Copie a chave Pix abaixo.</span>';
+    }
+  } catch (e) {
+    if (qrHost) qrHost.innerHTML = '<span class="pix-qr-fallback">Não foi possível carregar o QR Code agora. Copie a chave Pix abaixo.</span>';
   }
 
   var copyBtn = document.getElementById('pix-copy-btn');

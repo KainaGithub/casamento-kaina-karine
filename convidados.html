@@ -92,13 +92,31 @@
   .gift-cat li span.price{color:var(--ink-soft); font-style:italic; white-space:nowrap}
 
   .pix-box{
-    display:flex; flex-direction:column; align-items:center; text-align:center;
+    display:flex; gap:24px; align-items:center; flex-wrap:wrap;
     background:var(--paper); border:1px solid var(--blue-pale); border-radius:14px;
-    padding:24px; margin-top:30px; max-width:380px; margin-left:auto; margin-right:auto;
+    padding:24px; margin-top:30px; justify-content:center;
   }
+  .pix-qr-frame{position:relative; flex-shrink:0}
+  .pix-qr{
+    width:240px; height:240px;
+    display:flex; align-items:center; justify-content:center;
+    background:#ffffff; border:1px solid var(--blue-pale); border-radius:12px; padding:10px;
+    box-shadow:0 10px 24px -14px rgba(48,65,79,.35);
+  }
+  .pix-qr img, .pix-qr canvas{display:block}
+  .pix-badge{
+    position:absolute; top:-12px; right:-12px;
+    width:40px; height:40px; border-radius:50%;
+    background:var(--blue-deep); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Playfair Display',serif; font-weight:700; font-size:.72rem;
+    box-shadow:0 4px 10px rgba(44,66,86,.4);
+    border:2px solid var(--paper);
+  }
+  .pix-info{flex:1; min-width:200px; text-align:left}
   .pix-info strong{display:block; font-family:'Cormorant Garamond',serif; color:var(--ink); font-size:1.05rem; margin-bottom:6px}
   .pix-info p{margin:0 0 12px; font-size:.9rem; color:var(--ink-soft); line-height:1.5}
-  .pix-key-row{display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap}
+  .pix-key-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
   .pix-key{
     font-family:'Playfair Display',serif; font-weight:600; color:var(--blue-deep);
     background:var(--blue-wash); border:1px solid var(--blue-pale); border-radius:8px;
@@ -111,6 +129,7 @@
   }
   .pix-copy-btn:hover{background:#2c4256}
   .pix-copy-btn.copied{background:var(--whatsapp)}
+  @media (max-width:420px){ .pix-box{justify-content:center; text-align:center} .pix-info{text-align:center} .pix-key-row{justify-content:center} }
 
   footer.sig{text-align:center; font-size:.8rem; color:var(--ink-soft); font-style:italic; margin-top:4px}
 </style>
@@ -224,9 +243,13 @@
     </div>
 
     <div class="pix-box">
+      <div class="pix-qr-frame">
+        <div id="pix-qr" class="pix-qr"></div>
+        <span class="pix-badge">K&amp;K</span>
+      </div>
       <div class="pix-info">
         <strong>Quer contribuir de outro jeito?</strong>
-        <p>Qualquer valor é bem-vindo! É só copiar a chave Pix abaixo e colar no app do seu banco.</p>
+        <p>Qualquer valor é bem-vindo! Abra o Pix no app do seu banco e use a opção "Pagar com QR Code" (a câmera comum do celular não reconhece Pix) — ou copie a chave abaixo.</p>
         <div class="pix-key-row">
           <span class="pix-key" id="pix-key-text" data-raw="49546119890">495.461.198-90</span>
           <button type="button" class="pix-copy-btn" id="pix-copy-btn">Copiar</button>
@@ -238,8 +261,25 @@
   <footer class="sig">Com carinho, Kainã &amp; Karine 💙</footer>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script>
 (function(){
+  // Payload Pix (BR Code) estático — chave CPF, sem valor fixo, para
+  // que cada convidado digite o valor que quiser ao escanear.
+  // Testado offline (gerado e relido com decodificador) antes de publicar.
+  var PIX_PAYLOAD = "00020101021126330014br.gov.bcb.pix0111495461198905204000053039865802BR5914KAINA E KARINE6007DIADEMA62070503***63047BC7";
+
+  if (window.QRCode) {
+    new QRCode(document.getElementById('pix-qr'), {
+      text: PIX_PAYLOAD,
+      width: 220,
+      height: 220,
+      colorDark: '#000000',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.H
+    });
+  }
+
   var copyBtn = document.getElementById('pix-copy-btn');
   if (copyBtn) {
     copyBtn.addEventListener('click', function(){

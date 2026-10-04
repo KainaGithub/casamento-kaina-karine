@@ -99,33 +99,33 @@
   .pix-qr-col{display:flex; flex-direction:column; align-items:center; gap:10px; flex-shrink:0}
   .pix-qr-frame{position:relative; flex-shrink:0}
   .pix-qr-note{
-    margin:14px 0 0; max-width:320px; font-size:.74rem; line-height:1.4;
+    margin:12px 0 0; max-width:320px; font-size:.64rem; line-height:1.35;
     color:var(--blue-deep); background:var(--blue-wash);
-    border:1px solid var(--blue-pale); border-radius:8px; padding:8px 10px;
+    border:1px solid var(--blue-pale); border-radius:8px; padding:6px 9px;
   }
   .pix-qr-fallback{font-size:.78rem; color:var(--ink-soft); padding:8px; text-align:center}
   .pix-qr{
-    width:240px; height:240px;
+    width:176px; height:176px;
     display:flex; align-items:center; justify-content:center;
-    background:#ffffff; border:1px solid var(--blue-pale); border-radius:12px; padding:10px;
+    background:#ffffff; border:1px solid var(--blue-pale); border-radius:12px; padding:8px;
     box-shadow:0 10px 24px -14px rgba(48,65,79,.35);
   }
   .pix-qr img, .pix-qr canvas{display:block}
   .pix-badge{
-    position:absolute; bottom:-12px; right:-12px;
-    width:40px; height:40px; border-radius:50%;
+    position:absolute; bottom:-10px; right:-10px;
+    width:30px; height:30px; border-radius:50%;
     background:var(--blue-deep); color:#fff;
     display:flex; align-items:center; justify-content:center;
-    font-family:'Playfair Display',serif; font-weight:700; font-size:.72rem;
+    font-family:'Playfair Display',serif; font-weight:700; font-size:.56rem;
     box-shadow:0 4px 10px rgba(44,66,86,.4);
     border:2px solid var(--paper);
   }
   .pix-qr-logo{
     position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-    width:42px; height:42px; border-radius:50%;
-    background:#ffffff; border:2px solid var(--blue-deep);
+    width:32px; height:32px; border-radius:50%;
+    background:#ffffff; border:1.5px solid var(--blue-deep);
     display:flex; align-items:center; justify-content:center;
-    font-family:'Playfair Display',serif; font-weight:700; font-size:.68rem; color:var(--blue-deep);
+    font-family:'Playfair Display',serif; font-weight:700; font-size:.54rem; color:var(--blue-deep);
     box-shadow:0 1px 4px rgba(0,0,0,.2);
     pointer-events:none;
   }
@@ -296,8 +296,8 @@
     if (window.QRCode && qrHost) {
       new QRCode(qrHost, {
         text: PIX_PAYLOAD,
-        width: 220,
-        height: 220,
+        width: 160,
+        height: 160,
         colorDark: '#2c4256',
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.H

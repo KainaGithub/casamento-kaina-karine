@@ -238,7 +238,7 @@
         <strong>Quer contribuir de outro jeito?</strong>
         <p>Qualquer valor é bem-vindo! Aponte a câmera para o QR Code ou copie a chave abaixo.</p>
         <div class="pix-key-row">
-          <span class="pix-key" id="pix-key-text">495.461.198-90</span>
+          <span class="pix-key" id="pix-key-text" data-raw="49546119890">495.461.198-90</span>
           <button type="button" class="pix-copy-btn" id="pix-copy-btn">Copiar</button>
         </div>
       </div>
@@ -283,7 +283,8 @@
   var copyBtn = document.getElementById('pix-copy-btn');
   if (copyBtn) {
     copyBtn.addEventListener('click', function(){
-      var text = document.getElementById('pix-key-text').textContent.trim();
+      var keyEl = document.getElementById('pix-key-text');
+      var text = keyEl.dataset.raw || keyEl.textContent.trim();
       function done(){
         copyBtn.textContent = 'Copiado!';
         copyBtn.classList.add('copied');

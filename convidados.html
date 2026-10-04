@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kainã &amp; Karine — Convidados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Parisienne&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#faf7f1;
+    --paper-deep:#f1ece1;
+    --ink:#30414f;
+    --ink-soft:#5b6f7c;
+    --blue-deep:#3c5872;
+    --blue-mid:#7fa0b8;
+    --blue-pale:#dbe7ee;
+    --blue-wash:#eef3f6;
+    --line:#c7b9a0;
+    --whatsapp:#3fa46a;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 700px at 50% -10%, var(--blue-wash), transparent 60%),
+      linear-gradient(180deg, #f4f6f3 0%, #e9eef0 55%, #e3eaee 100%);
+    color:var(--ink);
+    font-family:'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+    padding:48px 16px 72px;
+  }
+  .page{max-width:680px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:40px}
+
+  .masthead{text-align:center; display:flex; flex-direction:column; align-items:center; gap:8px}
+  .masthead h1{
+    font-family:'Parisienne', cursive; font-weight:400;
+    font-size:clamp(2.6rem, 7vw, 3.4rem); color:var(--blue-deep); margin:0; line-height:1.1;
+  }
+  .masthead p{margin:0; font-style:italic; color:var(--ink-soft); font-size:1rem}
+
+  section{width:100%; scroll-margin-top:24px}
+
+  .section-head{text-align:center; margin-bottom:22px}
+  .section-head .eyebrow{display:block; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--blue-deep); margin-bottom:6px}
+  .section-head h2{font-family:'Playfair Display', serif; font-weight:600; font-size:1.6rem; margin:0; color:var(--ink)}
+
+  /* ---- Confirmação ---- */
+  .rsvp-card{
+    background:var(--paper); border:1px solid var(--blue-pale); border-radius:14px;
+    padding:30px 28px; text-align:center; box-shadow:0 20px 40px -24px rgba(48,65,79,.3);
+  }
+  .rsvp-card p{color:var(--ink-soft); font-size:1rem; line-height:1.55; margin:0 0 22px}
+  .btn-whatsapp{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--whatsapp); color:#fff; text-decoration:none;
+    font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.05rem;
+    letter-spacing:.02em; padding:13px 26px; border-radius:999px;
+    box-shadow:0 10px 20px -8px rgba(63,164,106,.55);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-whatsapp:hover{transform:translateY(-2px); box-shadow:0 14px 26px -8px rgba(63,164,106,.6)}
+  .btn-whatsapp svg{width:20px;height:20px;flex-shrink:0}
+  .rsvp-alt{margin-top:18px; font-size:.85rem; color:var(--ink-soft)}
+  .rsvp-alt a{color:var(--blue-deep)}
+  .pending-note{
+    margin-top:16px; font-size:.78rem; color:var(--blue-deep);
+    background:var(--blue-wash); border:1px dashed var(--blue-mid); border-radius:8px;
+    padding:8px 14px; display:inline-block;
+  }
+
+  /* ---- Presentes ---- */
+  .magalu-callout{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--blue-wash); border:1px solid var(--blue-pale); border-radius:12px;
+    padding:18px 20px; margin-bottom:28px;
+  }
+  .magalu-callout .ico{font-size:1.4rem; line-height:1}
+  .magalu-callout strong{display:block; font-family:'Cormorant Garamond',serif; color:var(--ink); font-size:1.02rem; margin-bottom:4px}
+  .magalu-callout p{margin:0 0 8px; font-size:.9rem; color:var(--ink-soft); line-height:1.5}
+  .magalu-callout a{color:var(--blue-deep); font-weight:600; font-size:.9rem; text-decoration:none; border-bottom:1px solid var(--blue-mid)}
+
+  .gift-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:18px}
+  .gift-cat{background:var(--paper); border:1px solid var(--blue-pale); border-radius:12px; padding:18px 20px}
+  .gift-cat h3{
+    margin:0 0 12px; font-family:'Playfair Display',serif; font-weight:600; font-size:.95rem;
+    letter-spacing:.06em; text-transform:uppercase; color:var(--blue-deep);
+    border-bottom:1px solid var(--blue-pale); padding-bottom:8px;
+  }
+  .gift-cat ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px}
+  .gift-cat li{display:flex; justify-content:space-between; gap:10px; font-size:.92rem; color:var(--ink)}
+  .gift-cat li span.price{color:var(--ink-soft); font-style:italic; white-space:nowrap}
+
+  footer.sig{text-align:center; font-size:.8rem; color:var(--ink-soft); font-style:italic; margin-top:4px}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="masthead">
+    <h1>Kainã &amp; Karine</h1>
+    <p>Confirme sua presença e veja a lista de presentes</p>
+  </div>
+
+  <section id="confirmacao">
+    <div class="section-head">
+      <span class="eyebrow">Para os convidados</span>
+      <h2>Confirmação de Presença</h2>
+    </div>
+    <div class="rsvp-card">
+      <p>Conte pra gente se você vai estar com a gente nesse dia — é rapidinho, só chamar no WhatsApp.</p>
+      <a class="btn-whatsapp" href="https://wa.me/55XXXXXXXXXXX?text=Ol%C3%A1!%20Quero%20confirmar%20presen%C3%A7a%20no%20casamento%20do%20Kain%C3%A3%20e%20da%20Karine!" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.82L2 22l5.4-1.34a9.9 9.9 0 0 0 4.64 1.16h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2m0 18.07h-.01a8.23 8.23 0 0 1-4.2-1.15l-.3-.18-3.12.78.83-3.05-.2-.31a8.2 8.2 0 0 1-1.26-4.35c0-4.55 3.71-8.26 8.27-8.26 2.21 0 4.28.86 5.85 2.42a8.2 8.2 0 0 1 2.42 5.85c0 4.56-3.71 8.25-8.28 8.25m4.54-6.19c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.53.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.24-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.55c.12.17 1.73 2.64 4.2 3.7.59.25 1.05.41 1.4.52.59.19 1.13.16 1.55.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.1-.23-.17-.48-.29"/></svg>
+        Confirmar no WhatsApp
+      </a>
+      <p class="rsvp-alt">Prefere um formulário? <a href="#">em breve</a></p>
+      <span class="pending-note">⚠ Número de WhatsApp ainda é um placeholder — troque pelo contato real antes de enviar aos convidados.</span>
+    </div>
+  </section>
+
+  <section id="presentes">
+    <div class="section-head">
+      <span class="eyebrow">Para os convidados</span>
+      <h2>Lista de Presentes</h2>
+    </div>
+
+    <div class="magalu-callout">
+      <span class="ico">🛒</span>
+      <div>
+        <strong>Prefere comprar online?</strong>
+        <p>Também temos uma lista no Magazine Luiza — compre direto pelo site e o valor vai pra gente.</p>
+        <a href="https://www.magazineluiza.com.br/busca/presentes+de+casamento/" target="_blank" rel="noopener">Ver no Magazine Luiza →</a>
+      </div>
+    </div>
+
+    <div class="gift-grid">
+      <div class="gift-cat">
+        <h3>Cozinha</h3>
+        <ul>
+          <li>Jogo de panelas (5 peças) <span class="price">R$ 299,90</span></li>
+          <li>Liquidificador <span class="price">R$ 149,90</span></li>
+          <li>Fritadeira elétrica (airfryer) <span class="price">R$ 349,90</span></li>
+          <li>Faqueiro (24 peças) <span class="price">R$ 129,90</span></li>
+          <li>Aparelho de jantar (20 peças) <span class="price">R$ 249,90</span></li>
+          <li>Jogo de facas <span class="price">R$ 99,90</span></li>
+        </ul>
+      </div>
+      <div class="gift-cat">
+        <h3>Quarto</h3>
+        <ul>
+          <li>Jogo de cama casal/queen <span class="price">R$ 189,90</span></li>
+          <li>Travesseiros (par) <span class="price">R$ 89,90</span></li>
+          <li>Edredom casal <span class="price">R$ 219,90</span></li>
+        </ul>
+      </div>
+      <div class="gift-cat">
+        <h3>Sala</h3>
+        <ul>
+          <li>Jogo de toalhas de banho <span class="price">R$ 119,90</span></li>
+          <li>Tapete para sala <span class="price">R$ 179,90</span></li>
+          <li>Kit de quadros decorativos <span class="price">R$ 99,90</span></li>
+        </ul>
+      </div>
+      <div class="gift-cat">
+        <h3>Eletro</h3>
+        <ul>
+          <li>Cafeteira elétrica <span class="price">R$ 179,90</span></li>
+          <li>Aspirador de pó <span class="price">R$ 349,90</span></li>
+          <li>Sanduicheira / grill elétrico <span class="price">R$ 99,90</span></li>
+          <li>Ferro de passar a vapor <span class="price">R$ 89,90</span></li>
+        </ul>
+      </div>
+      <div class="gift-cat">
+        <h3>Utilidades</h3>
+        <ul>
+          <li>Jogo de copos / taças <span class="price">R$ 69,90</span></li>
+          <li>Kit potes herméticos organizadores <span class="price">R$ 79,90</span></li>
+          <li>Jogo de panos de cozinha + luvas <span class="price">R$ 59,90</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <footer class="sig">Com carinho, Kainã &amp; Karine 💙</footer>
+</div>
+</body>
+</html>

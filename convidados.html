@@ -92,14 +92,14 @@
   .gift-cat li span.price{color:var(--ink-soft); font-style:italic; white-space:nowrap}
 
   .pix-box{
-    display:flex; gap:24px; align-items:center; flex-wrap:wrap;
+    display:flex; gap:24px; align-items:flex-start; flex-wrap:wrap;
     background:var(--paper); border:1px solid var(--blue-pale); border-radius:14px;
     padding:24px; margin-top:30px; justify-content:center;
   }
   .pix-qr-col{display:flex; flex-direction:column; align-items:center; gap:10px; flex-shrink:0}
   .pix-qr-frame{position:relative; flex-shrink:0}
   .pix-qr-note{
-    margin:0; max-width:190px; font-size:.74rem; line-height:1.4;
+    margin:14px 0 0; max-width:320px; font-size:.74rem; line-height:1.4;
     color:var(--blue-deep); background:var(--blue-wash);
     border:1px solid var(--blue-pale); border-radius:8px; padding:8px 10px;
   }
@@ -265,15 +265,15 @@
           <span class="pix-badge">K&amp;K</span>
           <span class="pix-qr-logo" aria-hidden="true">K&amp;K</span>
         </div>
-        <p class="pix-qr-note">⚠ Abra o <strong>app do seu banco</strong> e use a opção "Pix &gt; Pagar com QR Code" — a câmera comum do celular não reconhece Pix.</p>
       </div>
       <div class="pix-info">
         <strong>Quer contribuir de outro jeito?</strong>
-        <p>Qualquer valor é bem-vindo! Escaneie o QR acima pelo app do banco, ou copie a chave abaixo.</p>
+        <p>Qualquer valor é bem-vindo! Escaneie o QR ao lado pelo app do banco, ou copie a chave abaixo.</p>
         <div class="pix-key-row">
           <span class="pix-key" id="pix-key-text" data-raw="49546119890">495.461.198-90</span>
           <button type="button" class="pix-copy-btn" id="pix-copy-btn">Copiar</button>
         </div>
+        <p class="pix-qr-note">⚠ Abra o <strong>app do seu banco</strong> e use a opção "Pix &gt; Pagar com QR Code" — a câmera comum do celular não reconhece Pix.</p>
       </div>
     </div>
   </section>
